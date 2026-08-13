@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stripe AI Documentation Assistant | Portfolio Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="logo-icon">⚡</div>
+      <div class="brand-text">
+        <span class="brand-title">Stripe Docs AI</span>
+        <span class="brand-badge">RAG Architecture</span>
+      </div>
+    </div>
+    
+    <div class="nav-links">
+      <button class="nav-btn active" id="tabChatBtn">💬 Assistant</button>
+      <button class="nav-btn" id="tabDocsBtn">📖 Browse Docs</button>
+      <a href="https://github.com/jenna-england5/stripe-ai-doc-assistant" target="_blank" class="nav-link-ext">🐙 GitHub Repo ↗</a>
+      <button class="settings-btn" id="settingsBtn" title="Configure API & Settings">⚙️</button>
+    </div>
+  </nav>
+
+  <!-- Main Application Container -->
+  <main class="app-layout">
+    
+    <!-- VIEW 1: CHAT ASSISTANT -->
+    <section class="view-panel active" id="viewChat">
+      
+      <!-- Chat Container -->
+      <div class="chat-container">
+        
+        <!-- Welcome Hero -->
+        <div class="chat-hero" id="chatHero">
+          <div class="hero-icon">🤖</div>
+          <h1>Ask the Stripe Documentation</h1>
+          <p>Trained on curated Docs-as-Code markdown using Retrieval-Augmented Generation (RAG).</p>
+          
+          <div class="prompt-pills">
+            <button class="pill" data-query="How do I authenticate requests to the Stripe API?">🔑 How do I authenticate API calls?</button>
+            <button class="pill" data-query="What is the PaymentIntent lifecycle and its statuses?">💳 Explain Payment Intent statuses</button>
+            <button class="pill" data-query="How do I verify webhook signatures in Node.js?">🛡️ How to verify webhook signatures?</button>
+            <button class="pill" data-query="What test card number triggers a 3D Secure challenge?">🧪 Test card for 3D Secure challenge</button>
+            <button class="pill" data-query="How do I issue a partial refund with a custom reason?">💰 How to issue a partial refund?</button>
+          </div>
+        </div>
+
+        <!-- Chat Message Thread -->
+        <div class="messages-thread" id="messagesThread"></div>
+
+        <!-- Sticky Chat Input Bar -->
+        <div class="input-container">
+          <form id="chatForm" class="chat-form">
+            <textarea 
+              id="userInput" 
+              rows="1" 
+              placeholder="Ask a technical question about the Stripe API..."
+              autocomplete="off"
+            ></textarea>
+            <button type="submit" id="sendBtn" class="send-btn" title="Send Message">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+            </button>
+          </form>
+          <div class="input-footer">
+            <span>Grounding: <strong>Strict Stripe Docs Context Only</strong></span>
+            <span id="activeModeBadge" class="mode-badge">Mode: Local Semantic Engine</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: DOCUMENTATION BROWSER -->
+    <section class="view-panel" id="viewDocs">
+      <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+          <div class="sidebar-header">
+            <h3>Stripe Documentation Set</h3>
+            <p>7 Markdown files parsed into 28 semantic chunks.</p>
+          </div>
+          <div class="doc-file-list" id="docFileList">
+            <!-- Populated via JavaScript -->
+          </div>
+        </aside>
+
+        <!-- Doc Content Area -->
+        <article class="doc-content" id="docContent">
+          <div class="doc-placeholder">Select a document from the left to inspect its structure and frontmatter.</div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RAG Inspector Drawer / Modal -->
+  <div class="modal-overlay" id="inspectorModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔍 RAG Execution Inspector</h3>
+        <button class="modal-close" id="closeInspectorBtn">&times;</button>
+      </div>
+      <div class="modal-body" id="inspectorContent">
+        <!-- Populated via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ Assistant Settings</h3>
+        <button class="modal-close" id="closeSettingsBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-item">
+          <label for="apiKeyInput"><strong>OpenAI API Key (Optional)</strong></label>
+          <p class="setting-desc">If left blank, the assistant runs in zero-friction <strong>Local Semantic Engine Mode</strong> with instant offline synthesis.</p>
+          <input type="password" id="apiKeyInput" class="setting-input" placeholder="sk-proj-..." />
+        </div>
+        <div class="setting-actions">
+          <button class="btn-primary" id="saveSettingsBtn">Save Preferences</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

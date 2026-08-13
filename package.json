@@ -1,0 +1,27 @@
+{
+  "name": "stripe-ai-doc-assistant",
+  "version": "1.0.0",
+  "description": "AI-Powered Documentation Chatbot and RAG Assistant for Stripe API documentation, designed for technical writing portfolios.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "index-docs": "node src/indexer.js"
+  },
+  "keywords": [
+    "technical-writing",
+    "rag",
+    "stripe-docs",
+    "ai-assistant",
+    "documentation",
+    "vector-search"
+  ],
+  "author": "Technical Writer",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
